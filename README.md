@@ -1,2 +1,3 @@
 # WeChatPragramme
-A template framework of WeChat Programme
+微信小程序自建静态页面尝试
+学习中...
