@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNBU闲置小市场 - 我的</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: PingFang SC, Helvetica Neue, Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .t-navbar {
+            background-color: #fff;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .t-navbar-title {
+            flex: 1;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .user-profile {
+            background-color: #fff;
+            padding: 20px 16px;
+            margin-top: 48px;
+            display: flex;
+            align-items: center;
+        }
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #eee;
+            margin-right: 16px;
+            background-size: cover;
+            background-position: center;
+        }
+        .user-info {
+            flex: 1;
+        }
+        .user-name {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        .user-id {
+            font-size: 14px;
+            color: #999;
+        }
+        .user-verified {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: #0052d9;
+            margin-top: 4px;
+        }
+        .verified-icon {
+            color: #0052d9;
+            margin-right: 4px;
+        }
+        .menu-list {
+            margin-top: 10px;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            border-bottom: 1px solid #f5f5f5;
+            position: relative;
+        }
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        .menu-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            color: #0052d9;
+            font-size: 18px;
+        }
+        .menu-title {
+            flex: 1;
+            font-size: 16px;
+        }
+        .menu-arrow {
+            color: #ccc;
+            font-size: 16px;
+        }
+        .menu-badge {
+            background-color: #ff4d4f;
+            color: #fff;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-right: 8px;
+        }
+        .t-tabbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            background-color: #fff;
+            box-shadow: 0 -1px 3px rgba(0,0,0,0.05);
+            height: 50px;
+        }
+        .t-tabbar-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #666;
+        }
+        .t-tabbar-item.active {
+            color: #0052d9;
+        }
+        .t-tabbar-icon {
+            font-size: 20px;
+            margin-bottom: 2px;
+        }
+        .verify-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .verify-content {
+            width: 80%;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .verify-header {
+            padding: 16px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 500;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        .verify-form {
+            padding: 20px 16px;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-label {
+            font-size: 14px;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .form-input {
+            width: 100%;
+            height: 40px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 0 12px;
+            font-size: 14px;
+        }
+        .verify-footer {
+            display: flex;
+            border-top: 1px solid #f5f5f5;
+        }
+        .verify-btn {
+            flex: 1;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        .verify-cancel {
+            color: #666;
+            border-right: 1px solid #f5f5f5;
+        }
+        .verify-confirm {
+            color: #0052d9;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="t-navbar">
+        <div class="t-navbar-title">我的</div>
+    </div>
+
+    <!-- 用户信息 -->
+    <div class="user-profile">
+        <div class="user-avatar" style="background-image: url('https://via.placeholder.com/100x100')"></div>
+        <div class="user-info">
+            <div class="user-name">张同学</div>
+            <div class="user-id">微信号：zhang2023</div>
+            <div class="user-verified">
+                <span class="verified-icon">✓</span>
+                <span>已完成学号认证</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 功能菜单 -->
+    <div class="menu-list">
+        <div class="menu-item" onclick="location.href='favorites.html'">
+            <div class="menu-icon">♥</div>
+            <div class="menu-title">我的收藏</div>
+            <div class="menu-badge">3</div>
+            <div class="menu-arrow">›</div>
+        </div>
+        <div class="menu-item" onclick="location.href='my-items.html'">
+            <div class="menu-icon">📦</div>
+            <div class="menu-title">我的发布</div>
+            <div class="menu-badge">3</div>
+            <div class="menu-arrow">›</div>
+        </div>
+        <div class="menu-item" id="verify-btn">
+            <div class="menu-icon">🔒</div>
+            <div class="menu-title">学号认证</div>
+            <div class="menu-arrow">›</div>
+        </div>
+        <div class="menu-item">
+            <div class="menu-icon">⚙️</div>
+            <div class="menu-title">设置</div>
+            <div class="menu-arrow">›</div>
+        </div>
+    </div>
+
+    <!-- 底部标签栏 -->
+    <div class="t-tabbar">
+        <div class="t-tabbar-item">
+            <div class="t-tabbar-icon">🏠</div>
+            <div>首页</div>
+        </div>
+        <div class="t-tabbar-item">
+            <div class="t-tabbar-icon">💬</div>
+            <div>消息</div>
+        </div>
+        <div class="t-tabbar-item">
+            <div class="t-tabbar-icon">➕</div>
+            <div>发布</div>
+        </div>
+        <div class="t-tabbar-item active">
+            <div class="t-tabbar-icon">👤</div>
+            <div>我的</div>
+        </div>
+    </div>
+
+    <!-- 学号认证弹窗 -->
+    <div class="verify-modal" id="verify-modal">
+        <div class="verify-content">
+            <div class="verify-header">学号认证</div>
+            <div class="verify-form">
+                <div class="form-group">
+                    <label class="form-label">姓名</label>
+                    <input type="text" class="form-input" placeholder="请输入您的真实姓名">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">学号</label>
+                    <input type="text" class="form-input" placeholder="请输入您的学号">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">学院</label>
+                    <input type="text" class="form-input" placeholder="请输入您所在的学院">
+                </div>
+            </div>
+            <div class="verify-footer">
+                <div class="verify-btn verify-cancel" id="verify-cancel">取消</div>
+                <div class="verify-btn verify-confirm">确认</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 学号认证弹窗
+        document.getElementById('verify-btn').addEventListener('click', function() {
+            document.getElementById('verify-modal').style.display = 'flex';
+        });
+        
+        document.getElementById('verify-cancel').addEventListener('click', function() {
+            document.getElementById('verify-modal').style.display = 'none';
+        });
+    </script>
+</body>
+</html> 

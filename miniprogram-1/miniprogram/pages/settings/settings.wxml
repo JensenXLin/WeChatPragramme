@@ -1,0 +1,156 @@
+<view class="container">
+  <view class="settings-header">
+    <view class="header-title">个人信息设置</view>
+    <view class="header-desc">完善个人信息，共创平台安全</view>
+  </view>
+
+  <!-- 个人信息设置 -->
+  <view class="settings-section">
+    <t-cell
+      title="头像"
+      arrow
+      bordered="{{false}}"
+      bindtap="chooseAvatar"
+    >
+      <t-avatar slot="note" image="{{userInfo.avatarUrl || '/assets/icons/default_avatar.png'}}" size="small" />
+    </t-cell>
+
+    <t-cell
+      title="昵称"
+      arrow
+      note="{{userInfo.nickName || '未设置'}}"
+      bordered="{{false}}"
+      bindtap="showNicknameModal"
+    />
+
+    <t-cell
+      title="微信号"
+      arrow
+      note="{{userInfo.contact || '未设置'}}"
+      bordered="{{false}}"
+      bindtap="showContactModal"
+    />
+  </view>
+
+  <!-- 账号设置 -->
+  <view class="settings-section">
+    <view class="section-title">账号设置</view>
+    <t-cell
+      title="学号认证"
+      arrow
+      hover
+      note="{{userInfo.isVerified ? '已认证' : '未认证'}}"
+      t-class-note="{{userInfo.isVerified ? 'verified-text' : 'unverified-text'}}"
+      bordered="{{false}}"
+      bindtap="showVerifyModal"
+    />
+    <t-cell
+      title="清除缓存"
+      hover
+      bordered="{{false}}"
+      bindtap="clearCache"
+    />
+  </view>
+
+  <!-- 关于 -->
+  <view class="settings-section">
+    <view class="section-title">关于</view>
+    <t-cell
+      title="关于我们"
+      arrow
+      hover
+      bordered="{{false}}"
+      bindtap="showAbout"
+    />
+    <t-cell
+      title="用户协议"
+      arrow
+      hover
+      bordered="{{false}}"
+      bindtap="showAgreement"
+    />
+    <t-cell
+      title="隐私政策"
+      arrow
+      hover
+      bordered="{{false}}"
+      bindtap="showPrivacy"
+    />
+  </view>
+
+  <!-- 退出登录 -->
+  <view class="logout-btn">
+    <t-button theme="danger" block bindtap="logout">退出登录</t-button>
+  </view>
+
+  <!-- 昵称修改弹窗 -->
+  <t-popup visible="{{showNickname}}" placement="center" bind:visible-change="onNicknameVisibleChange">
+    <view class="modal">
+      <view class="modal-header">修改昵称</view>
+      <view class="modal-content">
+        <t-input 
+          placeholder="请输入昵称" 
+          value="{{inputNickname}}"
+          maxlength="{{20}}"
+          bind:change="onNicknameChange"
+        />
+      </view>
+      <view class="modal-footer">
+        <t-button theme="light" size="large" block bindtap="cancelNickname">取消</t-button>
+        <t-button theme="primary" size="large" block bindtap="confirmNickname">确认</t-button>
+      </view>
+    </view>
+  </t-popup>
+
+  <!-- 微信号修改弹窗 -->
+  <t-popup visible="{{showContact}}" placement="center" bind:visible-change="onContactVisibleChange">
+    <view class="modal">
+      <view class="modal-header">修改微信号</view>
+      <view class="modal-content">
+        <t-input 
+          placeholder="请输入微信号" 
+          value="{{inputContact}}"
+          maxlength="{{30}}"
+          bind:change="onContactChange"
+        />
+      </view>
+      <view class="modal-footer">
+        <t-button theme="light" size="large" block bindtap="cancelContact">取消</t-button>
+        <t-button theme="primary" size="large" block bindtap="confirmContact">确认</t-button>
+      </view>
+    </view>
+  </t-popup>
+
+  <!-- 学号认证弹窗 -->
+  <t-popup visible="{{showVerify}}" placement="center" bind:visible-change="onVerifyVisibleChange">
+    <view class="modal">
+      <view class="modal-header">学号认证</view>
+      <view class="modal-content">
+        <t-input 
+          label="姓名" 
+          placeholder="请输入您的真实姓名" 
+          value="{{verifyForm.name}}"
+          bind:change="onVerifyNameChange"
+        />
+        <t-input 
+          label="学号" 
+          placeholder="请输入您的学号" 
+          value="{{verifyForm.studentId}}"
+          bind:change="onVerifyStudentIdChange"
+        />
+        <t-input 
+          label="学院" 
+          placeholder="请输入您所在的学院" 
+          value="{{verifyForm.college}}"
+          bind:change="onVerifyCollegeChange"
+        />
+      </view>
+      <view class="modal-footer">
+        <t-button theme="light" size="large" block bindtap="cancelVerify">取消</t-button>
+        <t-button theme="primary" size="large" block bindtap="confirmVerify">确认</t-button>
+      </view>
+    </view>
+  </t-popup>
+
+  <t-toast id="t-toast" />
+</view> 

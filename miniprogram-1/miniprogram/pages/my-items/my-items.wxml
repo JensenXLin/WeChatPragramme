@@ -1,0 +1,51 @@
+<view class="container">
+  <view class="page-header">
+    <view class="page-title">我的发布</view>
+  </view>
+
+  <view wx:if="{{myProducts.length > 0}}" class="product-list">
+    <view 
+      class="product-item" 
+      wx:for="{{myProducts}}" 
+      wx:key="id"
+      bindtap="onProductTap"
+      data-id="{{item.id}}"
+    >
+      <image class="product-image" src="{{item.imgList[0]}}" mode="aspectFill"></image>
+      <view class="product-info">
+        <view class="product-title">{{item.title}}</view>
+        <view class="product-price">¥{{item.price}}</view>
+        <view class="product-meta">{{item.category}} · {{item.createTime}}</view>
+        <view class="product-status {{item.status === '已售出' ? 'sold' : ''}}">{{item.status}}</view>
+      </view>
+      <view class="action-icon" catch:tap="onActionTap" data-id="{{item.id}}">
+        <t-icon name="more" size="48rpx" />
+      </view>
+    </view>
+  </view>
+
+  <view wx:else class="empty-state">
+    <image class="empty-icon" src="/assets/icons/empty.png"></image>
+    <view class="empty-text">您还没有发布任何商品</view>
+    <t-button theme="primary" size="large" bindtap="navigateToPublish">去发布</t-button>
+  </view>
+
+  <!-- 操作弹出层 -->
+  <t-popup visible="{{showActions}}" placement="bottom" bind:visible-change="onActionsVisibleChange">
+    <view class="actions-container">
+      <view class="action-item" bindtap="onEditTap">
+        <t-icon name="edit" size="48rpx" />
+        <text>编辑</text>
+      </view>
+      <view class="action-item" bindtap="onStatusTap">
+        <t-icon name="{{selectedProduct.status === '已售出' ? 'time' : 'check-circle'}}" size="48rpx" />
+        <text>{{selectedProduct.status === '已售出' ? '重新上架' : '标记售出'}}</text>
+      </view>
+      <view class="action-item delete" bindtap="onDeleteTap">
+        <t-icon name="delete" size="48rpx" />
+        <text>删除</text>
+      </view>
+    </view>
+    <view class="action-cancel" bindtap="closeActions">取消</view>
+  </t-popup>
+</view> 

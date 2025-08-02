@@ -1,0 +1,111 @@
+/**app.wxss**/
+/* 添加TDesign图标字体本地引用 */
+@font-face {
+  font-family: 'tdesign-icon';
+  src: url('assets/fonts/t.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+page {
+  font-family: PingFang SC, Helvetica Neue, Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-container {
+  padding: 0 30rpx;
+}
+
+.section {
+  margin-bottom: 20rpx;
+  background-color: #fff;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 500;
+  margin-bottom: 16rpx;
+  color: #333;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.text-primary {
+  color: #0052d9;
+}
+
+.text-price {
+  color: #ff4d4f;
+}
+
+.text-gray {
+  color: #999;
+}
+
+.text-sm {
+  font-size: 24rpx;
+}
+
+.text-md {
+  font-size: 28rpx;
+}
+
+.text-lg {
+  font-size: 32rpx;
+}
+
+.font-bold {
+  font-weight: 500;
+}
+
+.mt-10 {
+  margin-top: 20rpx;
+}
+
+.mb-10 {
+  margin-bottom: 20rpx;
+}
+
+.ml-10 {
+  margin-left: 20rpx;
+}
+
+.mr-10 {
+  margin-right: 20rpx;
+}
+
+.p-10 {
+  padding: 20rpx;
+}
+
+.p-15 {
+  padding: 30rpx;
+}
+
+.p-20 {
+  padding: 40rpx;
+}

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNBU闲置小市场 - 首页</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tdesign-icons-vue-next/dist/index.min.css">
+    <style>
+        body {
+            font-family: PingFang SC, Helvetica Neue, Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .t-navbar {
+            background-color: #fff;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .t-search {
+            background-color: #f5f5f5;
+            border-radius: 20px;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            margin: 0 8px;
+            flex: 1;
+        }
+        .t-search-icon {
+            color: #999;
+            margin-right: 8px;
+        }
+        .t-search-input {
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 14px;
+            color: #333;
+            width: 100%;
+        }
+        .t-tabs {
+            display: flex;
+            background-color: #fff;
+            overflow-x: auto;
+            white-space: nowrap;
+            position: fixed;
+            top: 48px;
+            left: 0;
+            right: 0;
+            z-index: 99;
+            border-bottom: 1px solid #eee;
+        }
+        .t-tab {
+            padding: 12px 16px;
+            font-size: 14px;
+            position: relative;
+        }
+        .t-tab.active {
+            color: #0052d9;
+            font-weight: 500;
+        }
+        .t-tab.active:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
+            background-color: #0052d9;
+            border-radius: 2px;
+        }
+        .product-list {
+            padding: 110px 12px 60px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .product-card {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .product-image {
+            width: 100%;
+            height: 140px;
+            background-color: #eee;
+            background-size: cover;
+            background-position: center;
+        }
+        .product-info {
+            padding: 8px 12px;
+            position: relative;
+        }
+        .product-title {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .product-price {
+            color: #ff4d4f;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .favorite-icon {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            font-size: 20px;
+            color: #ddd;
+            cursor: pointer;
+        }
+        .favorite-icon.active {
+            color: #ff4d4f;
+        }
+        .t-tabbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            background-color: #fff;
+            box-shadow: 0 -1px 3px rgba(0,0,0,0.05);
+            height: 50px;
+        }
+        .t-tabbar-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #666;
+        }
+        .t-tabbar-item.active {
+            color: #0052d9;
+        }
+        .t-tabbar-icon {
+            font-size: 20px;
+            margin-bottom: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="t-navbar">
+        <div class="t-search">
+            <span class="t-search-icon">🔍</span>
+            <input type="text" class="t-search-input" placeholder="搜索商品">
+        </div>
+    </div>
+
+    <!-- 分类选项卡 -->
+    <div class="t-tabs">
+        <div class="t-tab active">全部</div>
+        <div class="t-tab">数码</div>
+        <div class="t-tab">书籍</div>
+        <div class="t-tab">服装</div>
+        <div class="t-tab">家居</div>
+        <div class="t-tab">美妆</div>
+        <div class="t-tab">其他</div>
+    </div>
+
+    <!-- 商品列表 -->
+    <div class="product-list">
+        <!-- 商品1 -->
+        <div class="product-card">
+            <div class="product-image" style="background-image: url('https://via.placeholder.com/300x200/eef/text=iPhone')"></div>
+            <div class="product-info">
+                <div class="product-title">iPhone 13 Pro 256G 深空灰色 99新</div>
+                <div class="product-price">¥4999</div>
+                <div class="favorite-icon">♡</div>
+            </div>
+        </div>
+
+        <!-- 商品2 -->
+        <div class="product-card">
+            <div class="product-image" style="background-image: url('https://via.placeholder.com/300x200/fee/text=书籍')"></div>
+            <div class="product-info">
+                <div class="product-title">高等数学 第七版 同济大学 带笔记</div>
+                <div class="product-price">¥20</div>
+                <div class="favorite-icon active">♥</div>
+            </div>
+        </div>
+
+        <!-- 商品3 -->
+        <div class="product-card">
+            <div class="product-image" style="background-image: url('https://via.placeholder.com/300x200/efe/text=耳机')"></div>
+            <div class="product-info">
+                <div class="product-title">Beats Solo3 无线耳机 红色 9成新</div>
+                <div class="product-price">¥799</div>
+                <div class="favorite-icon">♡</div>
+            </div>
+        </div>
+
+        <!-- 商品4 -->
+        <div class="product-card">
+            <div class="product-image" style="background-image: url('https://via.placeholder.com/300x200/eef/text=自行车')"></div>
+            <div class="product-info">
+                <div class="product-title">捷安特自行车 学生款 轻便通勤</div>
+                <div class="product-price">¥350</div>
+                <div class="favorite-icon">♡</div>
+            </div>
+        </div>
+
+        <!-- 商品5 -->
+        <div class="product-card">
+            <div class="product-image" style="background-image: url('https://via.placeholder.com/300x200/ffe/text=台灯')"></div>
+            <div class="product-info">
+                <div class="product-title">LED护眼台灯 可调光 USB充电</div>
+                <div class="product-price">¥45</div>
+                <div class="favorite-icon">♡</div>
+            </div>
+        </div>
+
+        <!-- 商品6 -->
+        <div class="product-card">
+            <div class="product-image" style="background-image: url('https://via.placeholder.com/300x200/fef/text=衣服')"></div>
+            <div class="product-info">
+                <div class="product-title">Nike卫衣 L码 黑色 全新带吊牌</div>
+                <div class="product-price">¥199</div>
+                <div class="favorite-icon">♡</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部标签栏 -->
+    <div class="t-tabbar">
+        <div class="t-tabbar-item active">
+            <div class="t-tabbar-icon">🏠</div>
+            <div>首页</div>
+        </div>
+        <div class="t-tabbar-item">
+            <div class="t-tabbar-icon">💬</div>
+            <div>消息</div>
+        </div>
+        <div class="t-tabbar-item">
+            <div class="t-tabbar-icon">➕</div>
+            <div>发布</div>
+        </div>
+        <div class="t-tabbar-item">
+            <div class="t-tabbar-icon">👤</div>
+            <div>我的</div>
+        </div>
+    </div>
+</body>
+</html> 

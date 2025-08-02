@@ -1,0 +1,81 @@
+<view class="container">
+  <!-- 用户信息 -->
+  <view class="user-profile">
+    <t-avatar 
+      class="user-avatar" 
+      image="{{userInfo.avatarUrl || '/assets/icons/default_avatar.png'}}" 
+      size="large" 
+    />
+    <view class="user-info">
+      <view class="user-name">{{userInfo.nickName || '未登录'}}</view>
+      <view class="user-id">{{userInfo.contact ? '微信号：' + userInfo.contact : '点击登录/授权'}}</view>
+      <view wx:if="{{userInfo.isVerified}}" class="user-verified verified">
+        <t-icon name="check-circle-filled" size="32rpx" class="verified-icon" />
+        <text>已完成学号认证</text>
+      </view>
+      <view wx:else class="user-verified unverified">
+        <t-icon name="close-circle-filled" size="32rpx" class="unverified-icon" />
+        <text>未完成学号认证</text>
+      </view>
+    </view>
+    <t-button wx:if="{{!userInfo.nickName}}" size="small" theme="primary" bindtap="handleLogin">登录</t-button>
+  </view>
+
+  <!-- 功能菜单 -->
+  <view class="menu-list">
+    <t-cell
+      title="我的收藏"
+      leftIcon="/assets/icons/my_collect.png"
+      hover
+      arrow
+      note="{{favoriteUpdates > 0 ? favoriteUpdates : ''}}"
+      t-class-note="{{favoriteUpdates > 0 ? 'badge' : ''}}"
+      bindtap="navigateToFavorites"
+    />
+    <t-cell
+      title="我的发布"
+      leftIcon="/assets/icons/my_publish.png"
+      hover
+      arrow
+      bindtap="navigateToMyItems"
+    />
+    <t-cell
+      title="设置"
+      leftIcon="/assets/icons/setting.png"
+      hover
+      arrow
+      bindtap="navigateToSettings"
+    />
+  </view>
+
+  <!-- 学号认证弹窗 -->
+  <t-popup visible="{{showVerify}}" placement="center" bind:visible-change="onVerifyVisibleChange">
+    <view class="verify-modal">
+      <view class="verify-header">学号认证</view>
+      <view class="verify-form">
+        <t-input 
+          label="姓名" 
+          placeholder="请输入您的真实姓名" 
+          value="{{verifyForm.name}}"
+          bind:change="onVerifyNameChange"
+        />
+        <t-input 
+          label="学号" 
+          placeholder="请输入您的学号" 
+          value="{{verifyForm.studentId}}"
+          bind:change="onVerifyStudentIdChange"
+        />
+        <t-input 
+          label="学院" 
+          placeholder="请输入您所在的学院" 
+          value="{{verifyForm.college}}"
+          bind:change="onVerifyCollegeChange"
+        />
+      </view>
+      <view class="verify-footer">
+        <t-button theme="light" size="large" block bindtap="cancelVerify">取消</t-button>
+        <t-button theme="primary" size="large" block bindtap="submitVerify">确认</t-button>
+      </view>
+    </view>
+  </t-popup>
+</view> 

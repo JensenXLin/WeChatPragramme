@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNBU闲置小市场 - 消息</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: PingFang SC, Helvetica Neue, Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .t-navbar {
+            background-color: #fff;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .t-navbar-title {
+            flex: 1;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .messages-list {
+            padding: 58px 0 60px;
+            background-color: #fff;
+        }
+        .message-item {
+            display: flex;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f5f5f5;
+            position: relative;
+        }
+        .message-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: #eee;
+            margin-right: 12px;
+            background-size: cover;
+            background-position: center;
+        }
+        .message-content {
+            flex: 1;
+            overflow: hidden;
+        }
+        .message-name {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            color: #333;
+        }
+        .message-text {
+            font-size: 13px;
+            color: #999;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .message-time {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            font-size: 12px;
+            color: #999;
+        }
+        .message-badge {
+            position: absolute;
+            top: 36px;
+            right: 16px;
+            width: 18px;
+            height: 18px;
+            background-color: #ff4d4f;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        .empty-state {
+            padding: 100px 0;
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+            display: none;
+        }
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            color: #ddd;
+        }
+        .t-tabbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            background-color: #fff;
+            box-shadow: 0 -1px 3px rgba(0,0,0,0.05);
+            height: 50px;
+        }
+        .t-tabbar-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #666;
+        }
+        .t-tabbar-item.active {
+            color: #0052d9;
+        }
+        .t-tabbar-icon {
+            font-size: 20px;
+            margin-bottom: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="t-navbar">
+        <div class="t-navbar-title">消息</div>
+    </div>
+
+    <!-- 消息列表 -->
+    <div class="messages-list">
+        <!-- 消息1 -->
+        <div class="message-item">
+            <div class="message-avatar" style="background-image: url('https://via.placeholder.com/100x100')"></div>
+            <div class="message-content">
+                <div class="message-name">李同学</div>
+                <div class="message-text">请问最低可以接受多少钱？电池健康度具体是多少？</div>
+            </div>
+            <div class="message-time">10:30</div>
+            <div class="message-badge">2</div>
+        </div>
+
+        <!-- 消息2 -->
+        <div class="message-item">
+            <div class="message-avatar" style="background-image: url('https://via.placeholder.com/100x100/efe')"></div>
+            <div class="message-content">
+                <div class="message-name">王同学</div>
+                <div class="message-text">好的，那我明天下午三点可以去看看这本书</div>
+            </div>
+            <div class="message-time">昨天</div>
+        </div>
+
+        <!-- 消息3 -->
+        <div class="message-item">
+            <div class="message-avatar" style="background-image: url('https://via.placeholder.com/100x100/fee')"></div>
+            <div class="message-content">
+                <div class="message-name">赵同学</div>
+                <div class="message-text">这个自行车还在吗？可以便宜一点吗？</div>
+            </div>
+            <div class="message-time">前天</div>
+        </div>
+
+        <!-- 消息4 -->
+        <div class="message-item">
+            <div class="message-avatar" style="background-image: url('https://via.placeholder.com/100x100/eef')"></div>
+            <div class="message-content">
+                <div class="message-name">陈同学</div>
+                <div class="message-text">谢谢，成交愉快！</div>
+            </div>
+            <div class="message-time">5-18</div>
+        </div>
+    </div>
+
+    <!-- 空状态 -->
+    <div class="empty-state">
+        <div class="empty-icon">💬</div>
+        <div>暂无聊天消息</div>
+        <div style="margin-top: 8px;">与卖家沟通后，消息会显示在这里</div>
+    </div>
+
+    <!-- 底部标签栏 -->
+    <div class="t-tabbar">
+        <div class="t-tabbar-item">
+            <div class="t-tabbar-icon">🏠</div>
+            <div>首页</div>
+        </div>
+        <div class="t-tabbar-item">
+            <div class="t-tabbar-icon">💬</div>
+            <div>消息</div>
+        </div>
+        <div class="t-tabbar-item">
+            <div class="t-tabbar-icon">➕</div>
+            <div>发布</div>
+        </div>
+        <div class="t-tabbar-item">
+            <div class="t-tabbar-icon">👤</div>
+            <div>我的</div>
+        </div>
+    </div>
+</body>
+</html> 

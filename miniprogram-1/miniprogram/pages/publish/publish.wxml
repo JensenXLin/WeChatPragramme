@@ -1,0 +1,106 @@
+<view class="container">
+  <!-- 表单容器 -->
+  <view class="form-container">
+    <!-- 商品信息 -->
+    <view class="form-group">
+      <t-input 
+        label="标题" 
+        placeholder="请输入商品标题（最多30字）" 
+        value="{{title}}"
+        maxlength="{{30}}"
+        bind:change="onTitleChange"
+      />
+      <t-textarea 
+        label="描述" 
+        placeholder="请详细描述商品的成色、规格等信息" 
+        value="{{desc}}"
+        maxlength="{{500}}"
+        disableDefaultPadding="{{true}}"
+        autosize
+        bind:change="onDescChange"
+      />
+    </view>
+
+    <!-- 价格和分类 -->
+    <view class="form-group">
+      <t-input 
+        label="价格" 
+        placeholder="请输入价格" 
+        value="{{price}}"
+        type="number"
+        suffix="元"
+        bind:change="onPriceChange"
+      />
+      <t-cell
+        title="分类"
+        arrow
+        note="{{category || '请选择分类'}}"
+        bind:click="showCategoryPicker"
+      />
+    </view>
+
+    <!-- 图片上传 -->
+    <view class="form-group">
+      <view class="upload-title">上传商品图片（最多3张）</view>
+      <t-upload
+        mediaType="{{['image']}}"
+        max="{{3}}"
+        files="{{fileList}}"
+        bind:success="onUploadSuccess"
+        bind:remove="onUploadRemove"
+      >
+        <t-button t-class="upload-button" theme="light" size="large">
+          <t-icon name="add" size="48rpx" />
+        </t-button>
+      </t-upload>
+    </view>
+    
+    <!-- 联系方式设置 -->
+    <view class="form-group contact-group">
+      <t-cell
+        title="显示联系方式"
+        hover
+        note="{{showContact ? '开启' : '关闭'}}"
+      >
+        <t-switch
+          slot="right-icon"
+          value="{{showContact}}"
+          bind:change="onShowContactChange"
+        />
+      </t-cell>
+      <view wx:if="{{showContact}}" class="contact-info">
+        <view class="contact-tip">
+          <text class="contact-label">微信号：</text>
+          <text class="contact-value">{{contact || '未设置'}}</text>
+        </view>
+        <view class="contact-note">发布后买家将看到此联系方式</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar">
+    <t-button theme="light" size="large" block bindtap="onCancel">取消</t-button>
+    <t-button theme="primary" size="large" block bindtap="onPublish">发布</t-button>
+  </view>
+
+  <!-- 分类选择器弹出层 -->
+  <t-popup visible="{{showPicker}}" placement="bottom" bind:visible-change="onPickerVisibleChange">
+    <view class="picker-container">
+      <view class="picker-header">
+        <view class="picker-cancel" bindtap="onPickerCancel">取消</view>
+        <view class="picker-title">选择分类</view>
+        <view class="picker-confirm" bindtap="onPickerConfirm">确定</view>
+      </view>
+      <view class="custom-picker">
+        <picker-view value="{{categoryIndex}}" bindchange="onCategoryChange" class="picker-view">
+          <picker-view-column>
+            <view wx:for="{{categories}}" wx:key="index" class="picker-view-column-item">
+              {{item.label}}
+            </view>
+          </picker-view-column>
+        </picker-view>
+      </view>
+    </view>
+  </t-popup>
+</view> 

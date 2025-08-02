@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BNBU闲置小市场 - 商品详情</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: PingFang SC, Helvetica Neue, Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .t-navbar {
+            background-color: #fff;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .t-navbar-back {
+            font-size: 20px;
+            color: #333;
+            margin-right: 8px;
+        }
+        .t-navbar-title {
+            flex: 1;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .swiper {
+            width: 100%;
+            height: 300px;
+            margin-top: 48px;
+            position: relative;
+        }
+        .swiper-slide {
+            width: 100%;
+            height: 100%;
+            background-color: #eee;
+            background-size: cover;
+            background-position: center;
+        }
+        .swiper-pagination {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+        }
+        .swiper-pagination-bullet {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+        .swiper-pagination-bullet-active {
+            background-color: #fff;
+        }
+        .product-info {
+            background-color: #fff;
+            padding: 16px;
+            margin-bottom: 10px;
+        }
+        .product-price {
+            color: #ff4d4f;
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        .product-title {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #999;
+        }
+        .product-desc {
+            background-color: #fff;
+            padding: 16px;
+            margin-bottom: 10px;
+        }
+        .section-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        .desc-content {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+        .seller-info {
+            background-color: #fff;
+            padding: 16px;
+            margin-bottom: 80px;
+            display: flex;
+            align-items: center;
+        }
+        .seller-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: #eee;
+            margin-right: 12px;
+            background-size: cover;
+            background-position: center;
+        }
+        .seller-detail {
+            flex: 1;
+        }
+        .seller-name {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        .seller-contact {
+            font-size: 14px;
+            color: #666;
+        }
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            box-shadow: 0 -1px 3px rgba(0,0,0,0.05);
+            gap: 12px;
+        }
+        .contact-btn {
+            flex: 1;
+            height: 40px;
+            background-color: #0052d9;
+            color: #fff;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .favorite-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #999;
+        }
+        .favorite-btn.active {
+            color: #ff4d4f;
+            border-color: #ffccc7;
+        }
+        .chat-window {
+            position: fixed;
+            bottom: 60px;
+            left: 0;
+            right: 0;
+            height: 0;
+            background-color: #fff;
+            transition: height 0.3s;
+            overflow: hidden;
+            z-index: 99;
+            box-shadow: 0 -1px 3px rgba(0,0,0,0.05);
+        }
+        .chat-window.active {
+            height: 60%;
+        }
+        .chat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        .chat-title {
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .chat-close {
+            font-size: 20px;
+            color: #999;
+        }
+        .chat-messages {
+            padding: 16px;
+            height: calc(100% - 120px);
+            overflow-y: auto;
+        }
+        .message {
+            margin-bottom: 16px;
+            display: flex;
+        }
+        .message.received {
+            justify-content: flex-start;
+        }
+        .message.sent {
+            justify-content: flex-end;
+        }
+        .message-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #eee;
+            margin-right: 8px;
+            background-size: cover;
+            background-position: center;
+        }
+        .message.sent .message-avatar {
+            order: 1;
+            margin-right: 0;
+            margin-left: 8px;
+        }
+        .message-content {
+            max-width: 70%;
+            padding: 10px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .message.received .message-content {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .message.sent .message-content {
+            background-color: #0052d9;
+            color: #fff;
+        }
+        .chat-input {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            padding: 8px 16px;
+            border-top: 1px solid #f5f5f5;
+        }
+        .chat-input-field {
+            flex: 1;
+            height: 36px;
+            border: 1px solid #ddd;
+            border-radius: 18px;
+            padding: 0 12px;
+            font-size: 14px;
+            outline: none;
+        }
+        .chat-send {
+            width: 60px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0052d9;
+            font-size: 14px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <div class="t-navbar">
+        <div class="t-navbar-back">←</div>
+        <div class="t-navbar-title">商品详情</div>
+    </div>
+
+    <!-- 商品轮播图 -->
+    <div class="swiper">
+        <div class="swiper-slide" style="background-image: url('https://via.placeholder.com/800x600/eef/text=iPhone')"></div>
+        <div class="swiper-pagination">
+            <div class="swiper-pagination-bullet swiper-pagination-bullet-active"></div>
+            <div class="swiper-pagination-bullet"></div>
+            <div class="swiper-pagination-bullet"></div>
+        </div>
+    </div>
+
+    <!-- 商品基本信息 -->
+    <div class="product-info">
+        <div class="product-price">¥4999</div>
+        <div class="product-title">iPhone 13 Pro 256G 深空灰色 99新 原装正品 无拆修</div>
+        <div class="product-meta">
+            <div>分类：数码</div>
+            <div>发布时间：2023-05-20</div>
+        </div>
+    </div>
+
+    <!-- 商品详情描述 -->
+    <div class="product-desc">
+        <div class="section-title">商品描述</div>
+        <div class="desc-content">
+            iPhone 13 Pro 256G 深空灰色，购买于2022年1月，使用9个月，99新，无拆修，无进水，原装配件齐全（充电器、数据线、耳机均为原装）。电池健康度90%，系统流畅无卡顿。<br><br>
+            因换了新手机，现低价出售，价格可小刀，诚心购买的同学请联系我。校内当面交易，可验机。
+        </div>
+    </div>
+
+    <!-- 卖家信息 -->
+    <div class="seller-info">
+        <div class="seller-avatar" style="background-image: url('https://via.placeholder.com/100x100')"></div>
+        <div class="seller-detail">
+            <div class="seller-name">张同学</div>
+            <div class="seller-contact">微信号：zhang2023</div>
+        </div>
+    </div>
+
+    <!-- 底部联系按钮 -->
+    <div class="bottom-bar">
+        <div class="favorite-btn">♡</div>
+        <div class="contact-btn" onclick="document.querySelector('.chat-window').classList.add('active')">在线沟通</div>
+    </div>
+
+    <!-- 聊天窗口 -->
+    <div class="chat-window">
+        <div class="chat-header">
+            <div class="chat-title">与 张同学 的对话</div>
+            <div class="chat-close" onclick="document.querySelector('.chat-window').classList.remove('active')">×</div>
+        </div>
+        <div class="chat-messages">
+            <div class="message received">
+                <div class="message-avatar" style="background-image: url('https://via.placeholder.com/100x100')"></div>
+                <div class="message-content">您好，请问这个iPhone还在出售吗？</div>
+            </div>
+            <div class="message sent">
+                <div class="message-avatar" style="background-image: url('https://via.placeholder.com/100x100/eef')"></div>
+                <div class="message-content">在的，有什么可以帮您的吗？</div>
+            </div>
+            <div class="message received">
+                <div class="message-avatar" style="background-image: url('https://via.placeholder.com/100x100')"></div>
+                <div class="message-content">请问最低可以接受多少钱？电池健康度具体是多少？</div>
+            </div>
+            <div class="message sent">
+                <div class="message-avatar" style="background-image: url('https://via.placeholder.com/100x100/eef')"></div>
+                <div class="message-content">电池健康度是90%，最低4800可以，校内当面交易。</div>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" class="chat-input-field" placeholder="请输入消息...">
+            <div class="chat-send">发送</div>
+        </div>
+    </div>
+</body>
+</html> 

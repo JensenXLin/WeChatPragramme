@@ -1,0 +1,33 @@
+<view class="container">
+  <view class="page-header">
+    <view class="page-title">消息</view>
+  </view>
+
+  <view wx:if="{{conversations.length > 0}}" class="conversation-list">
+    <view 
+      class="conversation-item" 
+      wx:for="{{conversations}}" 
+      wx:key="id"
+      bindtap="onConversationTap"
+      data-id="{{item.id}}"
+    >
+      <image class="avatar" src="{{item.avatar}}" mode="aspectFill"></image>
+      <view class="conversation-info">
+        <view class="conversation-header">
+          <view class="name">{{item.name}}</view>
+          <view class="time">{{item.lastTime}}</view>
+        </view>
+        <view class="conversation-content">
+          <view class="message">{{item.lastMessage}}</view>
+          <view wx:if="{{item.unread > 0}}" class="badge">{{item.unread}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else class="empty-state">
+    <image class="empty-icon" src="/assets/icons/empty.png"></image>
+    <view class="empty-text">暂无消息</view>
+    <t-button theme="primary" size="large" bindtap="navigateToHome">去逛逛</t-button>
+  </view>
+</view> 

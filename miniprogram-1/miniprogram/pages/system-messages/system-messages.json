@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "系统消息",
+  "usingComponents": {
+    "t-button": "tdesign-miniprogram/button/button",
+    "t-icon": "tdesign-miniprogram/icon/icon"
+  }
+} 

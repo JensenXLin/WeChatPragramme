@@ -1,0 +1,28 @@
+<view class="container">
+  <view class="system-header">
+    <image class="system-avatar" src="/assets/icons/system.png"></image>
+    <view class="system-title">系统消息</view>
+  </view>
+
+  <view wx:if="{{systemMessages.length > 0}}" class="message-list">
+    <view 
+      class="message-item" 
+      wx:for="{{systemMessages}}" 
+      wx:key="id"
+      bindtap="onMessageTap"
+      data-id="{{item.id}}"
+    >
+      <view class="message-time">{{item.formattedTime}}</view>
+      <view class="message-content {{!item.read ? 'unread' : ''}}">
+        <view class="message-title">{{item.title}}</view>
+        <view class="message-text">{{item.content}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else class="empty-state">
+    <image class="empty-icon" src="/assets/icons/empty.png"></image>
+    <view class="empty-text">暂无系统消息</view>
+    <t-button theme="primary" size="large" bindtap="navigateToHome">返回首页</t-button>
+  </view>
+</view> 

@@ -1,0 +1,63 @@
+<view class="container">
+  <!-- 商品轮播图 -->
+  <swiper class="swiper" indicator-dots="{{true}}" autoplay="{{true}}" interval="{{3000}}" duration="{{500}}" circular="{{true}}">
+    <swiper-item wx:for="{{product.imgList}}" wx:key="index">
+      <image src="{{item}}" class="swiper-image" mode="aspectFill"></image>
+    </swiper-item>
+  </swiper>
+
+  <!-- 商品基本信息 -->
+  <view class="section product-info">
+    <view class="product-price">¥{{product.price}}</view>
+    <view class="product-title">{{product.title}}</view>
+    <view class="product-meta">
+      <text>分类：{{product.category}}</text>
+      <text>发布时间：{{product.createTime}}</text>
+    </view>
+  </view>
+
+  <!-- 商品详情描述 -->
+  <view class="section product-desc">
+    <view class="section-title">商品描述</view>
+    <view class="desc-content">{{product.desc}}</view>
+  </view>
+
+  <!-- 卖家信息 -->
+  <view class="section seller-info">
+    <image class="seller-avatar" src="{{product.seller.avatarUrl}}"></image>
+    <view class="seller-detail">
+      <view class="seller-name">{{product.seller.nickName}}</view>
+      <view class="seller-contact">微信号：{{product.seller.contact}}</view>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar">
+    <view class="favorite-btn {{isFavorite ? 'active' : ''}}" bindtap="toggleFavorite">
+      <image src="/assets/icons/{{isFavorite ? 'collect_active' : 'collect'}}.png" mode="aspectFit" class="favorite-image"></image>
+    </view>
+    <view class="contact-btn" bindtap="openChat">
+      <text>在线沟通</text>
+    </view>
+  </view>
+
+  <!-- 聊天窗口 -->
+  <view class="chat-window {{showChat ? 'active' : ''}}">
+    <view class="chat-header">
+      <view class="chat-title">与 {{product.seller.nickName}} 的对话</view>
+      <view class="chat-close" bindtap="closeChat">
+        <t-icon name="close" size="48rpx" />
+      </view>
+    </view>
+    <scroll-view scroll-y class="chat-messages" scroll-into-view="{{lastMessageId}}">
+      <view wx:for="{{messages}}" wx:key="id" class="message {{item.isSelf ? 'sent' : 'received'}}" id="msg-{{item.id}}">
+        <image class="message-avatar" src="{{item.isSelf ? userInfo.avatarUrl : product.seller.avatarUrl}}"></image>
+        <view class="message-content">{{item.content}}</view>
+      </view>
+    </scroll-view>
+    <view class="chat-input">
+      <input class="chat-input-field" placeholder="请输入消息..." value="{{inputMessage}}" bindinput="onInputChange" />
+      <view class="chat-send" bindtap="sendMessage">发送</view>
+    </view>
+  </view>
+</view> 
